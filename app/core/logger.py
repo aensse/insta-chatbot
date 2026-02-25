@@ -1,6 +1,8 @@
 import logging
+
 from rich.logging import RichHandler
 
+logging.getLogger("uvicorn").handlers.clear()
 
 def setup_logging():
     logging.basicConfig(
@@ -9,4 +11,3 @@ def setup_logging():
     datefmt="[%X]",
     handlers=[RichHandler()]
 )
-    

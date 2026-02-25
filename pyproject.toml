@@ -1,36 +1,47 @@
-[build-system]
-requires = ["setuptools>=61.0", "wheel"]
-build-backend = "setuptools.build_meta"
-
-[tool.setuptools.packages.find]
-where = ["."]
-include = ["src*"]
-exclude = ["node_modules*", "*.js", "*.ts", "static*", "frontend*"]
-
 [project]
-name = "recording"
+name = "insta-ai"
 version = "0.1.0"
 description = "Add your description here"
 readme = "README.md"
-requires-python = ">=3.13"
+requires-python = ">=3.12"
 dependencies = [
-    "dotenv>=0.9.9",
-    "fastapi>=0.116.1",
-    "instagrapi>=2.2.1",
-    "pydantic-settings>=2.10.1",
+    "aiograpi>=0.0.4",
+    "aiopath>=0.7.7",
+    "aiosqlite>=0.22.1",
+    "fastapi[standard]>=0.128.7",
+    "pydantic-settings>=2.12.0",
     "pyotp>=2.9.0",
-    "pytest>=8.4.1",
-    "python-dotenv>=1.1.1",
-    "typer>=0.19.2",
-    "uvicorn[standard]>=0.35.0",
-    "xai-sdk>=1.3.1",
+    "sqlalchemy>=2.0.46",
+    "xai-sdk>=1.6.1",
 ]
 
-[tool.pytest.ini_options]
-pythonpath = "."
+[tool.ruff.lint]
+select = ["ALL"]
+ignore = [
+    "ANN201",
+    "ANN204",  
+    "COM812",  # missing-trailing-comma
+    "CPY001",  # Missing copyright notice at top of file
+    "D100",    # Missing docstring in public module
+    "D101",    # Missing docstring in public class
+    "D102",
+    "D103",    # Missing docstring in public function
+    "D104",    # Missing docstring in public package
+    "D107",
+    "D203",    # blank line required before class docstring
+    "D211",    # no-blank-line-before-class
+    "D213",    # multi-line-summary-second-line
+    "EM101",   # raw-string-in-exception
+    "FIX002",  # line-contains-todo
+    "ISC001",  # Conflicts with formatter ruff
+    "INP001",
+    "PLR0904", # Too many public methods (... > 20)
+    "TC001",
+    "TC002",
+    "TD002",   # Missing author in TODO `# TODO(<author_name>): ...`
+    "TD003",   # missing-todo-link
+    "TRY003",  # raise-vanilla-args
+]
 
-[project.scripts]
-instasea = "src.main:main"
-
-[tool.uv]
-package = true
+[tool.ruff]
+line-length = 120

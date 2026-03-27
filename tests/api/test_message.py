@@ -9,7 +9,7 @@ client = TestClient(app)
 
 def override_background_tasks():
     class BackgroundTasksMocker:
-        def add_task(*args):
+        def add_task(self, *args):
             return True
 
     return BackgroundTasksMocker()

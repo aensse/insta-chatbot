@@ -1,7 +1,6 @@
 import asyncio
 
-from fastapi import HTTPException, status
-
+from app.domain.errors import InvalidStatus
 from app.domain.models import InstagramMessage, LLMResponse
 from app.ports.db_port import UsersDBPort
 from app.ports.instagram_port import InstagramPort
@@ -24,19 +23,18 @@ async def handle_message(
     if not user_status:
         await db.add_user(message)
     if user_status == "blocked":
-        raise HTTPException(
-            status_code=status.HTTP_400_BAD_REQUEST,
-            detail="Conversation with user already finished",
-        )
+        raise InvalidStatus(message.sender_username, user_status)
 
     async with lock:
         if message.sender_id in USERS_WAITING_FOR_RESPONSE:
             return
+        USERS_WAITING_FOR_RESPONSE.add(message.sender_id)
 
     async with instagram_lock:
-        USERS_WAITING_FOR_RESPONSE.add(message.sender_id)
         thread_content = await instagram.get_thread(message.thread_id)
         llm_response: LLMResponse = await llm.get_ai_response(thread_content)
         await instagram.send_message(llm_response.message, message.thread_id)
         await db.update_user_status(message.sender_id, llm_response.status)
+
+    async with lock:
         USERS_WAITING_FOR_RESPONSE.remove(message.sender_id)

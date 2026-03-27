@@ -1,6 +1,6 @@
 ## Instagram AI Chatbot
 > AI-powered bot, which responds to messages sent to your Instagram account in real-time. 
-> All you have to do is specify a [instructions](https://github.com/aensse/insta-ai/blob/main/instructions.txt) for it.
+> All you have to do is specify a [instructions](https://github.com/aensse/instagram_chatbot/blob/main/instructions.txt) for it.
 
 ## Quick start
 For now, it's only suitable for use by developers. It requires [Instagram MQTT](https://github.com/Nerixyz/instagram_mqtt) script, which will send all messages to our API in original JSON format. Full integration with MQTT is coming soon.
@@ -9,7 +9,7 @@ I strongly recommend using [uv](https://docs.astral.sh/uv/), as further steps wi
 
 1) In the OS console (assuming you are in the folder where you want to keep the project), type:
 ```
-git clone https://github.com/aensse/insta-ai
+git clone https://github.com/aensse/instagram_chatbot
 cd insta-ai
 uv sync
 cp .env-example .env
@@ -28,7 +28,7 @@ For now, every message delivered to /api/v1/messages endpoint will be responded.
 
 ## AI Instructions
 The whole personality of the bot and the way it carries on a conversation should be defined in the
-[instructions](https://github.com/aensse/insta-ai/blob/main/instructions.txt) file. 
+[instructions](https://github.com/aensse/instagram_chatbot/blob/main/instructions.txt) file. 
 
 You can also specify when it should end the conversation.
 

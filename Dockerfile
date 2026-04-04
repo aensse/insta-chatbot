@@ -1,34 +1,20 @@
-FROM python:3.13-bookworm AS builder
+FROM python:3.12-slim-trixie
 
-RUN apt-get update && apt-get install --no-install-recommends -y \
-        build-essential && \
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+COPY --from=ghcr.io/astral-sh/uv:0.8.15 /uv /uvx /bin/
 
-ADD https://astral.sh/uv/install.sh /install.sh
-RUN chmod -R 655 /install.sh && /install.sh && rm /install.sh
+RUN apt update; apt install git -y
 
-ENV PATH="/root/.local/bin:$PATH"
+ADD . /app
 
 WORKDIR /app
 
-COPY ./pyproject.toml .
-
-RUN uv sync
-
-FROM python:3.13-slim-bookworm AS production
+RUN uv sync --frozen --no-cache --no-group ruff --no-dev
 
 ENV LLM_API_KEY=${LLM_API_KEY}
 ENV USERNAME=${USERNAME}
 ENV PASSWORD=${PASSWORD}
 ENV SECRET=${SECRET}
 
-WORKDIR /app
-
-COPY /app app
-COPY --from=builder /app/.venv .venv
-
 ENV PATH="/app/.venv/bin:$PATH"
 
-EXPOSE $PORT
-
-CMD ["fastapi", "run", "--host", "0.0.0.0", "--port", "8080"]
+CMD ["/app/.venv/bin/fastapi", "run", "app/main.py", "--port", "80", "--host", "0.0.0.0"]

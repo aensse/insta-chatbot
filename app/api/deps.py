@@ -46,7 +46,7 @@ def get_grok_adapter() -> GrokLLMAdapter:
 LLM_ADAPTERS = {"grok": get_grok_adapter}
 
 
-async def get_llm_adapter(
+def get_llm_adapter(
     adapter_name: str = Query("grok", alias="llm_adapter"),
 ) -> LLMPort:
     adapter = LLM_ADAPTERS.get(adapter_name)
@@ -57,5 +57,5 @@ async def get_llm_adapter(
     return adapter()
 
 
-async def get_background_tasks(background_tasks: BackgroundTasks) -> BackgroundTasks:
+def get_background_tasks(background_tasks: BackgroundTasks) -> BackgroundTasks:
     return background_tasks

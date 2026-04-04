@@ -1,15 +1,14 @@
 import pytest
-from fastapi.testclient import TestClient
-
 from app.api.deps import get_background_tasks
 from app.main import app
+from fastapi.testclient import TestClient
 
 client = TestClient(app)
 
 
 def override_background_tasks():
     class BackgroundTasksMocker:
-        def add_task(self, *args):
+        def add_task(self, *args):  # noqa: ANN002, PLR6301
             return True
 
     return BackgroundTasksMocker()

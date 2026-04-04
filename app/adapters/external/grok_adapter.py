@@ -11,13 +11,13 @@ class ThreadInfo(BaseModel):
     message: Annotated[
         str,
         Field(
-            description="Message to the user based on the context of the entire conversation."
+            description="Message to the user based on the context of the entire conversation."  # noqa: E501
         ),
     ]
     status: Annotated[
         Literal["active", "blocked"],
         Field(
-            description="User status based on instructions from the beginning of the conversation."
+            description="User status based on instructions from the beginning of the conversation."  # noqa: E501
         ),
     ]
 

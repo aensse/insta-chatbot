@@ -5,7 +5,7 @@ from app.domain.models import InstagramThread
 
 
 class AiograpiAdapter:
-    def __init__(self, cl: Client):
+    def __init__(self, cl: Client) -> None:
         self.cl = cl
 
     async def refresh(self) -> None:
@@ -34,7 +34,7 @@ class AiograpiAdapter:
             "xma_share",
             "clip",
             "placeholder",
-        }  # noqa: E501
+        }
         clean_thread = []
         clean_thread.extend(
             InstagramThread(**message.model_dump(exclude=to_exclude))

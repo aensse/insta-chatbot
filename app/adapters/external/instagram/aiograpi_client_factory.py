@@ -21,7 +21,7 @@ DEVICE = {
     "hardware": "q2q",
     "product": "q2qxx",
     "build": "q2q-user 14 UP1A.231005.007 S928BXXU1AWF5 release-keys",
-    "fingerprint": "samsung/q2qxx/q2q:14/UP1A.231005.007/S928BXXU1AWF5:user/release-keys",
+    "fingerprint": "samsung/q2qxx/q2q:14/UP1A.231005.007/S928BXXU1AWF5:user/release-keys",  # noqa: E501
     "brand": "samsung",
     "device_id": "android-7a9b3c2d1e4f8560",
     "phone_id": "7a9b3c2d-1e4f-8560-9d8e-f0123456789a",
